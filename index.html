@@ -48,50 +48,70 @@
             margin-top: 10px;
         }
 
-        .section {
-            background-color: #fff;
-            margin-bottom: 40px;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .section h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-            color: #8B4513;
-            border-bottom: 3px solid #D2691E;
-            padding-bottom: 10px;
-        }
-
-        .section-number {
-            display: inline-block;
-            background-color: #D2691E;
-            color: white;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
+        .page-title {
             text-align: center;
-            border-radius: 50%;
-            margin-right: 10px;
-            font-weight: bold;
+            margin-bottom: 40px;
         }
 
-        .section p {
-            margin-top: 15px;
-            margin-bottom: 30px;
-            font-size: 1.1em;
+        .page-title h1 {
+            font-size: 2.5em;
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            font-size: 1.2em;
             color: #666;
         }
 
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+        /* Product Table Styles */
+        .product-table {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow-x: auto;
         }
 
-        .image-grid img {
+        .table-grid {
+            display: grid;
+            grid-template-columns: 200px repeat(2, 1fr);
+            gap: 20px;
+            min-width: 600px;
+        }
+
+        .table-header {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #8B4513;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .table-header.empty {
+            background-color: transparent;
+        }
+
+        .row-label {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #8B4513;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .table-cell {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table-cell img {
             width: 100%;
             height: 300px;
             object-fit: cover;
@@ -101,8 +121,19 @@
             cursor: pointer;
         }
 
-        .image-grid img:hover {
+        .table-cell img:hover {
             transform: scale(1.05);
+        }
+
+        .table-cell.placeholder {
+            background-color: #e0e0e0;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+            border: 2px dashed #ccc;
         }
 
         /* Lightbox Styles */
@@ -192,20 +223,48 @@
         }
 
         @media (max-width: 768px) {
-            h1 {
+            .page-title h1 {
                 font-size: 1.8em;
             }
 
-            .section h2 {
-                font-size: 1.5em;
+            .page-title p {
+                font-size: 1em;
             }
 
-            .section {
+            .product-table {
                 padding: 20px;
             }
 
-            .image-grid {
-                grid-template-columns: 1fr;
+            .table-grid {
+                grid-template-columns: 150px 1fr;
+                gap: 15px;
+            }
+
+            .table-header:not(.empty) {
+                font-size: 1.2em;
+                padding: 15px;
+            }
+
+            .table-header:nth-child(3) {
+                display: none;
+            }
+
+            .table-cell:nth-child(3n+3),
+            .table-cell:nth-child(3n+2) {
+                grid-column: 2;
+            }
+
+            .row-label {
+                font-size: 1em;
+                padding: 15px 10px;
+            }
+
+            .table-cell img {
+                height: 200px;
+            }
+
+            .table-cell.placeholder {
+                height: 200px;
             }
         }
     </style>
@@ -216,39 +275,39 @@
     </header>
 
     <div class="container">
-        <!-- Section 1: Grilled Meats -->
-        <div class="section">
-            <h2><span class="section-number">1</span>Grilled Meats</h2>
-            <div class="image-grid">
-                <img src="images/meats/meat_chicken.jpeg" alt="Grilled Chicken">
-                <img src="images/meats/meat_chicken_2.jpeg" alt="Grilled Chicken 2">
-                <img src="images/meats/meat_pork.jpeg" alt="Grilled Pork">
-                <img src="images/meats/meat_pork_2.jpeg" alt="Grilled Pork 2">
-                <img src="images/meats/meat_pork_3.jpeg" alt="Grilled Pork 3">
-                <img src="images/meats/meat_pork_4.jpeg" alt="Grilled Pork 4">
-                <img src="images/meats/meat_pork_5.jpeg" alt="Grilled Pork 5">
-            </div>
-        </div>
+        <div class="product-table">
+            <div class="table-grid">
+                <!-- Header Row -->
+                <div class="table-header empty"></div>
+                <div class="table-header">Chicken</div>
+                <div class="table-header">Pork</div>
 
-        <!-- Section 2: Filled Bread -->
-        <div class="section">
-            <h2><span class="section-number">2</span>Filled Bread</h2>
-            <div class="image-grid">
-                <img src="images/bread/bread_empty.jpeg" alt="Fresh Bread">
-                <img src="images/bread/bread_filled_chicken.jpeg" alt="Bread Filled with Chicken">
-                <img src="images/bread/bread_filled_chicken_2.jpeg" alt="Bread Filled with Chicken 2">
-                <img src="images/bread/bread_filled_pork.jpeg" alt="Bread Filled with Pork">
-            </div>
-        </div>
+                <!-- Row 1: Grilled Meats -->
+                <div class="row-label">Grilled Meats</div>
+                <div class="table-cell">
+                    <img src="images/meats/meat_chicken.jpeg" alt="Grilled Chicken">
+                </div>
+                <div class="table-cell">
+                    <img src="images/meats/meat_pork.jpeg" alt="Grilled Pork">
+                </div>
 
-        <!-- Section 3: Wooden Plate Presentation -->
-        <div class="section">
-            <h2><span class="section-number">3</span>Wooden Plate Presentation</h2>
-            <div class="image-grid">
-                <img src="images/wooden_plates/wooden_plate_empty.png" alt="Empty Wooden Plate">
-                <img src="images/wooden_plates/wooden_plate_bread_empty.png" alt="Wooden Plate with Bread">
-                <img src="images/wooden_plates/wooden_plate_filled_chicken.png" alt="Wooden Plate with Chicken">
-                <img src="images/wooden_plates/wooden_plate_filled_pork.png" alt="Wooden Plate with Pork">
+                <!-- Row 2: Filled Bread -->
+                <div class="row-label">Filled Bread</div>
+                <div class="table-cell">
+                    <img src="images/bread/bread_filled_chicken.jpeg" alt="Chicken in Bread">
+                </div>
+                <div class="table-cell">
+                    <img src="images/bread/bread_filled_pork.jpeg" alt="Pork in Bread">
+                </div>
+
+                <!-- Row 3: Wooden Plate Presentation -->
+                <div class="row-label">On Wooden Plate</div>
+                <div class="table-cell">
+                    <img src="images/wooden_plates/wooden_plate_filled_chicken.png" alt="Chicken on Wooden Plate">
+                </div>
+                <div class="table-cell">
+                    <img src="images/wooden_plates/wooden_plate_filled_pork.png" alt="Pork on Wooden Plate">
+                </div>
             </div>
         </div>
     </div>
@@ -269,8 +328,8 @@
 
         // Initialize lightbox
         document.addEventListener('DOMContentLoaded', function() {
-            // Get all images from the gallery
-            images = Array.from(document.querySelectorAll('.image-grid img'));
+            // Get all images from the table
+            images = Array.from(document.querySelectorAll('.table-cell img'));
 
             // Add click event to each image
             images.forEach((img, index) => {
